@@ -8,7 +8,7 @@ const router = express.Router();
 
 // 전체 게시글 조회 API
 
-router.get("/", async (req, res) => {
+router.get("/boards", async (req, res) => {
 
     const { category } = req.query;
 
@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
 // post 통해서는 글 제목과 작성자, 비밀번호만 입력
 // request를 받으면 받는 시점의 날짜 데이터를 받아오기
 
-router.post("/boards", async (req, res) => {
+router.post("/boards/post", async (req, res) => {
     const { boardTitle, name, password, context } = req.body; // post로 전달되는 데이터들을 각각 변수로 저장
     const boards = await Boards.find({ boardTitle }); // 게시판 제목 데이터 추출
     console.log(boards);
@@ -42,7 +42,7 @@ router.post("/boards", async (req, res) => {
 
 // 게시글 조회 API(단순 개시글 조회)
 
-router.get("/boards", async (req, res) => {
+router.get("/boards/get", async (req, res) => {
 
     const { category } = req.query;
 
@@ -59,7 +59,7 @@ router.get("/boards", async (req, res) => {
 
 // 게시글 수정 API
 
-router.put("/boards", async (req, res) => {
+router.put("/boards/put", async (req, res) => {
     const { boardTitle, password, context } = req.body; // post로 전달되는 게시글명과 비밀번호를 각각 저장
     
     // 우선, 동일한 게시글이 존재하지 않는지 찾기(존재하지 않으면 중단)
@@ -82,7 +82,7 @@ router.put("/boards", async (req, res) => {
 });
 
 // 게시글 삭제하기
-router.delete("/boards", async (req, res) => {
+router.delete("/boards/delete", async (req, res) => {
     const { boardTitle, password} = req.body; // post로 전달되는 게시글명과 비밀번호를 각각 저장
     
     // 우선, 동일한 게시글이 존재하지 않는지 찾기(존재하지 않으면 중단)
@@ -109,19 +109,3 @@ router.delete("/boards", async (req, res) => {
 
 // 라우터 export
 module.exports = router;
-
-// router.get('/', async (req, res) => {
-//     const { username } = req.query;
-//     const wholeArticle = await Articles.find(
-//       {},
-//       { _id: 0, title: 1, username: 1, date: 1 }
-//     );
-  
-//     const article = username
-//       ? await Articles.find(
-//           { username },
-//           { _id: 0, username: 1, title: 1, password: 1, content: 1 }
-//         )
-//       : wholeArticle.sort((a, b) => a['date'] - b['date']);
-//     res.json({ article });
-//   });

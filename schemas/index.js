@@ -14,3 +14,5 @@ mongoose.connection.on("error", err => {
 });
 //외부에서 connect함수를 사용할 수 있게 세팅
 module.exports = connect;
+
+
